@@ -27,9 +27,10 @@ class CbrController extends Controller
         $builder = \Yii::$app->db->queryBuilder;
         $params = [];
         foreach ($xml as $valutes) {
-            $params[] = [
+			
+			$params[] = [
                 trim((string)$valutes->Vcode),
-                trim((string)$valutes->Vname),
+				trim((string)$valutes->Vname),
                 trim((string)$valutes->VEngname),
                 trim((string)$valutes->Vnom),
                 trim((string)$valutes->VcommonCode),
@@ -66,7 +67,7 @@ class CbrController extends Controller
         if(empty($res->GetCursOnDateXMLResult->any))
             return;
         $xml = simplexml_load_string($res->GetCursOnDateXMLResult->any);
-        $d = $xml->attributes()['OnDate'] ?? $date;
+        $d = $xml->attributes()['OnDate'] ?: $date;
         $d = date('Y-m-d', strtotime($d));
         foreach($xml as $valutes) {
             $vd = new ValutesDaily();
